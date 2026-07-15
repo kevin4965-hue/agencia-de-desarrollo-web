@@ -1,0 +1,6 @@
+{
+  "name": "Agencia de Desarrollo Web",
+  "description": "Sitio web corporativo y de servicios para una agencia de desarrollo de páginas web, tiendas virtuales, sistemas web y mantenimiento de sitios WordPress.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
