@@ -10,7 +10,7 @@ interface MaintenanceProps {
 export default function Maintenance({ onOpenQuote }: MaintenanceProps) {
   return (
     <section
-      id="planes"
+      id="mantenimiento"
       className="relative py-20 md:py-28 bg-transparent overflow-hidden transition-colors duration-300"
     >
       {/* Background decorations */}

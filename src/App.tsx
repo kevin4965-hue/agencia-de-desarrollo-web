@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import WhyUs from './components/WhyUs';
 import Services from './components/Services';
+import WebDesignPricing from './components/WebDesignPricing';
 import Maintenance from './components/Maintenance';
 import Process from './components/Process';
 import Portfolio from './components/Portfolio';
@@ -51,6 +52,9 @@ export default function App() {
 
         {/* Dynamic Services Cards */}
         <Services onOpenQuote={(name) => handleOpenModal(name)} />
+
+        {/* Web Design Pricing (similar to the requested layout) */}
+        <WebDesignPricing onOpenQuote={(name) => handleOpenModal(name)} />
 
         {/* Maintenance Plans & Metaphor */}
         <Maintenance onOpenQuote={(name) => handleOpenModal(name)} />
