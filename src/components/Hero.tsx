@@ -4,9 +4,10 @@ import { Sparkles, ArrowRight, Laptop, Activity, Terminal, Shield, CheckCircle }
 
 interface HeroProps {
   onOpenQuote: () => void;
+  onChangePage?: (page: string) => void;
 }
 
-export default function Hero({ onOpenQuote }: HeroProps) {
+export default function Hero({ onOpenQuote, onChangePage }: HeroProps) {
   const metrics = [
     'Más de 100 proyectos',
     'Clientes satisfechos',
@@ -79,8 +80,15 @@ export default function Hero({ onOpenQuote }: HeroProps) {
               </button>
               <a
                 href="#portafolio"
+                onClick={(e) => {
+                  if (onChangePage) {
+                    e.preventDefault();
+                    onChangePage('portafolio');
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                  }
+                }}
                 id="hero-cta-portfolio"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl glass-card font-bold text-white border-white/10 hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl glass-card font-bold text-white border-white/10 hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
               >
                 Ver Portafolio
               </a>

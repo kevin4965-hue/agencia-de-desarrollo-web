@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
   onOpenQuote: () => void;
+  currentPage: string;
+  onChangePage: (page: string) => void;
 }
 
-export default function Header({ onOpenQuote }: HeaderProps) {
+export default function Header({ onOpenQuote, currentPage, onChangePage }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -23,16 +25,21 @@ export default function Header({ onOpenQuote }: HeaderProps) {
   }, []);
 
   const navLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Nosotros', href: '#nosotros' },
-    { name: 'Servicios', href: '#servicios' },
-    { name: 'Planes', href: '#planes' },
-    { name: 'Portafolio', href: '#portafolio' },
-    { name: 'Proceso', href: '#proceso' },
-    { name: 'F.A.Q', href: '#faq' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contacto', href: '#contacto' }
+    { name: 'Inicio', id: 'inicio' },
+    { name: 'Nosotros', id: 'nosotros' },
+    { name: 'Servicios', id: 'servicios' },
+    { name: 'Planes', id: 'planes' },
+    { name: 'Portafolio', id: 'portafolio' },
+    { name: 'F.A.Q', id: 'faq' },
+    { name: 'Blog', id: 'blog' },
+    { name: 'Contacto', id: 'contacto' }
   ];
+
+  const handleLinkClick = (e: React.MouseEvent, pageId: string) => {
+    e.preventDefault();
+    onChangePage(pageId);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
   return (
     <>
@@ -40,18 +47,23 @@ export default function Header({ onOpenQuote }: HeaderProps) {
         id="app-header"
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? 'py-3 glass-nav shadow-lg shadow-black/20'
+            ? 'py-3 glass-nav shadow-lg shadow-black/20 bg-slate-950/90 backdrop-blur-md border-b border-white/5'
             : 'py-5 bg-transparent border-b border-white/5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="#inicio" className="flex items-center gap-2 group" id="header-logo">
+            <a
+              href="#inicio"
+              onClick={(e) => handleLinkClick(e, 'inicio')}
+              className="flex items-center gap-2 group"
+              id="header-logo"
+            >
               <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue via-brand-purple to-brand-cyan shadow-lg shadow-brand-blue/30 transition group-hover:scale-105">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
                   pixelweb
                 </span>
@@ -63,15 +75,23 @@ export default function Header({ onOpenQuote }: HeaderProps) {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1" id="desktop-nav">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-slate-300 rounded-lg hover:text-white hover:bg-white/5 transition-all duration-200"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = currentPage === link.id;
+                return (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={(e) => handleLinkClick(e, link.id)}
+                    className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? 'text-white bg-white/10 shadow-sm border border-white/5'
+                        : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
             </nav>
 
             {/* CTA Button & Mobile Toggle */}
@@ -109,16 +129,26 @@ export default function Header({ onOpenQuote }: HeaderProps) {
               className="lg:hidden border-t border-white/5 bg-slate-950/95 backdrop-blur-md overflow-hidden"
             >
               <div className="px-4 py-6 space-y-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block px-4 py-3 text-base font-semibold text-slate-200 hover:text-white hover:bg-white/5 rounded-xl transition"
-                  >
-                    {link.name}
-                  </a>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = currentPage === link.id;
+                  return (
+                    <a
+                      key={link.id}
+                      href={`#${link.id}`}
+                      onClick={(e) => {
+                        setMobileMenuOpen(false);
+                        handleLinkClick(e, link.id);
+                      }}
+                      className={`block px-4 py-3 text-base font-semibold rounded-xl transition ${
+                        isActive
+                          ? 'text-white bg-white/10'
+                          : 'text-slate-200 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      {link.name}
+                    </a>
+                  );
+                })}
                 <div className="pt-4 px-4">
                   <button
                     onClick={() => {

@@ -1,25 +1,29 @@
 import React from 'react';
 import { Sparkles, Facebook, Twitter, Instagram, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
 
-export default function Footer() {
+interface FooterProps {
+  onChangePage: (page: string) => void;
+}
+
+export default function Footer({ onChangePage }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const servicesLinks = [
-    { name: 'Desarrollo Web', href: '#servicios' },
-    { name: 'Ecommerce', href: '#servicios' },
-    { name: 'Sistemas Web', href: '#servicios' },
-    { name: 'WordPress', href: '#servicios' },
-    { name: 'SEO & Analítica', href: '#servicios' },
-    { name: 'Hosting Premium', href: '#servicios' }
+    { name: 'Desarrollo Web', page: 'servicios' },
+    { name: 'Ecommerce', page: 'servicios' },
+    { name: 'Sistemas Web', page: 'servicios' },
+    { name: 'WordPress', page: 'servicios' },
+    { name: 'SEO & Analítica', page: 'servicios' },
+    { name: 'Hosting Premium', page: 'servicios' }
   ];
 
   const companyLinks = [
-    { name: '¿Por qué elegirnos?', href: '#nosotros' },
-    { name: 'Planes Mantenimiento', href: '#planes' },
-    { name: 'Nuestro Proceso', href: '#proceso' },
-    { name: 'Casos de Éxito', href: '#portafolio' },
-    { name: 'Testimonios', href: '#testimonios' },
-    { name: 'F.A.Q', href: '#faq' }
+    { name: '¿Por qué elegirnos?', page: 'nosotros' },
+    { name: 'Planes Mantenimiento', page: 'planes' },
+    { name: 'Nuestro Proceso', page: 'nosotros' },
+    { name: 'Casos de Éxito', page: 'portafolio' },
+    { name: 'Testimonios', page: 'portafolio' },
+    { name: 'F.A.Q', page: 'faq' }
   ];
 
   const legalLinks = [
@@ -36,6 +40,12 @@ export default function Footer() {
     { icon: <Github className="h-5 w-5" />, href: 'https://github.com', label: 'GitHub' }
   ];
 
+  const handleLinkClick = (e: React.MouseEvent, pageId: string) => {
+    e.preventDefault();
+    onChangePage(pageId);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   return (
     <footer
       id="app-footer"
@@ -46,11 +56,15 @@ export default function Footer() {
           
           {/* Brand Col */}
           <div className="lg:col-span-4 flex flex-col items-start text-left">
-            <a href="#inicio" className="flex items-center gap-2 mb-6 group">
+            <a
+              href="#inicio"
+              onClick={(e) => handleLinkClick(e, 'inicio')}
+              className="flex items-center gap-2 mb-6 group"
+            >
               <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue via-brand-purple to-brand-cyan shadow-lg shadow-brand-blue/20">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
                   pixelweb
                 </span>
@@ -90,8 +104,9 @@ export default function Footer() {
               {servicesLinks.map((link, idx) => (
                 <li key={idx}>
                   <a
-                    href={link.href}
-                    className="hover:text-brand-cyan transition-colors"
+                    href={`#${link.page}`}
+                    onClick={(e) => handleLinkClick(e, link.page)}
+                    className="hover:text-brand-cyan transition-colors cursor-pointer"
                   >
                     {link.name}
                   </a>
@@ -109,8 +124,9 @@ export default function Footer() {
               {companyLinks.map((link, idx) => (
                 <li key={idx}>
                   <a
-                    href={link.href}
-                    className="hover:text-brand-purple transition-colors"
+                    href={`#${link.page}`}
+                    onClick={(e) => handleLinkClick(e, link.page)}
+                    className="hover:text-brand-purple transition-colors cursor-pointer"
                   >
                     {link.name}
                   </a>
