@@ -52,7 +52,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
-                  PixelCraft
+                  pixelweb
                 </span>
                 <span className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase leading-none mt-1">
                   Web Studio
@@ -127,18 +127,18 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-slate-500">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-brand-blue shrink-0 mt-0.5" />
-                <span>Av. Javier Prado Este 1040, San Isidro, Lima, Perú</span>
+                <span>Cl. 26 sur 73 b-98 Bogotá Colombia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-emerald-500 shrink-0" />
-                <a href="https://wa.me/51999999999" target="_blank" rel="noreferrer" className="hover:text-white transition-colors font-semibold text-emerald-500">
-                  +51 999 999 999 (WA)
+                <a href="https://wa.me/573102655438" target="_blank" rel="noreferrer" className="hover:text-white transition-colors font-semibold text-emerald-500">
+                  +57 310 265 5438 (WA)
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-brand-cyan shrink-0" />
-                <a href="mailto:contacto@pixelcraft.com" className="hover:text-white transition-colors">
-                  contacto@pixelcraft.com
+                <a href="mailto:info@pixelweb.online" className="hover:text-white transition-colors">
+                  info@pixelweb.online
                 </a>
               </li>
             </ul>
@@ -149,7 +149,7 @@ export default function Footer() {
         {/* Footer Bottom Row */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600">
           <p className="leading-none">
-            &copy; {currentYear} PixelCraft Web Studio. Todos los derechos reservados.
+            &copy; {currentYear} pixelweb. Todos los derechos reservados.
           </p>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2">

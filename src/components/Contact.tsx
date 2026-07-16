@@ -16,6 +16,7 @@ export default function Contact() {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submittedData, setSubmittedData] = useState<any>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -26,25 +27,32 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate sending data to server
+    const dataToSubmit = { ...formData };
+    setSubmittedData(dataToSubmit);
+
+    // Simulate sending data to server and open WA
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-      // Clean after 5 seconds
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          name: '',
-          company: '',
-          email: '',
-          phone: '',
-          city: '',
-          projectType: 'Desarrollo Web',
-          budget: '$1,000 - $3,000',
-          message: ''
-        });
-      }, 5000);
-    }, 1500);
+
+      const messageText = `*Nueva Solicitud de Cotización - pixelweb*\n\n` +
+        `*Nombre:* ${dataToSubmit.name}\n` +
+        `*Empresa:* ${dataToSubmit.company || 'No especificada'}\n` +
+        `*Correo:* ${dataToSubmit.email}\n` +
+        `*Teléfono:* ${dataToSubmit.phone || 'No especificado'}\n` +
+        `*Ciudad:* ${dataToSubmit.city || 'No especificada'}\n` +
+        `*Proyecto:* ${dataToSubmit.projectType}\n` +
+        `*Presupuesto:* ${dataToSubmit.budget}\n` +
+        `*Mensaje:* ${dataToSubmit.message || 'Sin mensaje adicional'}`;
+
+      const whatsappUrl = `https://wa.me/573102655438?text=${encodeURIComponent(messageText)}`;
+      
+      try {
+        window.open(whatsappUrl, '_blank');
+      } catch (err) {
+        console.error('Popup blocked', err);
+      }
+    }, 1200);
   };
 
   return (
@@ -89,7 +97,7 @@ export default function Contact() {
                 
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/51999999999"
+                  href="https://wa.me/573102655438"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/3 hover:border-emerald-500/20 hover:bg-white/5 transition-all duration-300 group glass-card"
@@ -102,14 +110,14 @@ export default function Contact() {
                       WhatsApp Directo
                     </span>
                     <span className="text-sm font-bold text-slate-200 group-hover:text-emerald-400 transition-colors">
-                      +51 999 999 999
+                      +57 310 265 5438
                     </span>
                   </div>
                 </a>
 
                 {/* Correo */}
                 <a
-                  href="mailto:contacto@pixelcraft.com"
+                  href="mailto:info@pixelweb.online"
                   className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/3 hover:border-brand-blue/30 hover:bg-white/5 transition-all duration-300 group glass-card"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-brand-cyan group-hover:scale-105 transition-transform">
@@ -120,7 +128,7 @@ export default function Contact() {
                       Correo Electrónico
                     </span>
                     <span className="text-sm font-bold text-slate-200 group-hover:text-brand-cyan transition-colors">
-                      contacto@pixelcraft.com
+                      info@pixelweb.online
                     </span>
                   </div>
                 </a>
@@ -153,7 +161,7 @@ export default function Contact() {
                       Nuestra Ubicación
                     </span>
                     <span className="text-sm font-bold text-slate-200">
-                      Av. Javier Prado Este 1040, San Isidro, Lima, Perú
+                      Cl. 26 sur 73 b-98 Bogotá Colombia
                     </span>
                   </div>
                 </div>
@@ -181,24 +189,85 @@ export default function Contact() {
               {/* Highlight Lines */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-blue via-brand-purple to-brand-cyan" />
 
-              {submitted ? (
+              {submitted && submittedData ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center py-20 text-center h-full"
+                  className="flex flex-col items-center justify-center py-8 text-center h-full"
                 >
                   <div className="mb-6 rounded-full bg-emerald-500/10 p-4 text-emerald-400">
-                    <CheckCircle2 className="h-16 w-16" />
+                    <CheckCircle2 className="h-14 w-14" />
                   </div>
                   <h4 className="font-display text-2xl md:text-3xl font-bold text-white leading-tight">
-                    ¡Mensaje Recibido con Éxito!
+                    ¡Solicitud Procesada!
                   </h4>
-                  <p className="mt-4 max-w-md text-slate-300 text-base">
-                    Gracias por tu confianza, <strong>{formData.name}</strong>. Hemos registrado de forma segura tus requerimientos de <strong>{formData.projectType}</strong>. Nuestro equipo comercial ya está revisando tu caso para enviarte un diagnóstico preliminar en menos de 2 horas.
+                  <p className="mt-3 max-w-md text-slate-300 text-sm md:text-base leading-relaxed">
+                    Gracias por tu confianza, <strong>{submittedData.name}</strong>. Hemos registrado de forma segura tus requerimientos. Elige por cuál canal de comunicación prefieres completar el envío de tu cotización:
                   </p>
-                  <span className="mt-8 text-xs text-slate-400 font-medium">
-                    Soporte prioritario: +51 999 999 999
-                  </span>
+
+                  <div className="mt-6 w-full max-w-md space-y-3">
+                    {/* Botón WhatsApp */}
+                    <a
+                      href={`https://wa.me/573102655438?text=${encodeURIComponent(
+                        `*Nueva Solicitud de Cotización - pixelweb*\n\n` +
+                        `*Nombre:* ${submittedData.name}\n` +
+                        `*Empresa:* ${submittedData.company || 'No especificada'}\n` +
+                        `*Correo:* ${submittedData.email}\n` +
+                        `*Teléfono:* ${submittedData.phone || 'No especificado'}\n` +
+                        `*Ciudad:* ${submittedData.city || 'No especificada'}\n` +
+                        `*Proyecto:* ${submittedData.projectType}\n` +
+                        `*Presupuesto:* ${submittedData.budget}\n` +
+                        `*Mensaje:* ${submittedData.message || 'Sin mensaje adicional'}`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-600/20 text-sm md:text-base cursor-pointer"
+                    >
+                      <Phone className="h-5 w-5 fill-current" />
+                      Enviar por WhatsApp Directo (Recomendado)
+                    </a>
+
+                    {/* Botón Correo */}
+                    <a
+                      href={`mailto:proyectos@pixelweb.online?subject=${encodeURIComponent(
+                        `Nueva Cotización: ${submittedData.name} - ${submittedData.projectType}`
+                      )}&body=${encodeURIComponent(
+                        `Nueva Solicitud de Cotización - pixelweb\n\n` +
+                        `Nombre: ${submittedData.name}\n` +
+                        `Empresa: ${submittedData.company || 'No especificada'}\n` +
+                        `Correo: ${submittedData.email}\n` +
+                        `Teléfono: ${submittedData.phone || 'No especificado'}\n` +
+                        `Ciudad: ${submittedData.city || 'No especificada'}\n` +
+                        `Tipo de Proyecto: ${submittedData.projectType}\n` +
+                        `Presupuesto Estimado: ${submittedData.budget}\n` +
+                        `Mensaje:\n${submittedData.message || 'Sin mensaje adicional'}`
+                      )}`}
+                      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl font-bold text-white bg-brand-blue hover:bg-brand-blue/90 transition-all duration-300 shadow-lg shadow-brand-blue/20 text-sm md:text-base cursor-pointer"
+                    >
+                      <Mail className="h-5 w-5" />
+                      Enviar por Correo a proyectos@pixelweb.online
+                    </a>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setSubmittedData(null);
+                      setFormData({
+                        name: '',
+                        company: '',
+                        email: '',
+                        phone: '',
+                        city: '',
+                        projectType: 'Desarrollo Web',
+                        budget: '$1,000 - $3,000',
+                        message: ''
+                      });
+                    }}
+                    className="mt-6 text-xs text-slate-400 hover:text-white transition-colors underline cursor-pointer"
+                  >
+                    Enviar otra cotización
+                  </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 text-left" id="contact-quote-form">

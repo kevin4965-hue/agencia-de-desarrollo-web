@@ -412,41 +412,68 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'post-1',
     title: 'Cómo mejorar el SEO de tu web en 2026: Guía paso a paso',
+    subtitle: 'Estrategias de posicionamiento técnico para dominar los buscadores este año.',
     summary: 'Aprende las últimas técnicas recomendadas por Google, desde la optimización estricta de Core Web Vitals hasta la estructuración semántica del contenido.',
     date: 'Julio 12, 2026',
     readTime: '6 min de lectura',
     category: 'SEO',
     image: 'https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=600&q=80',
-    author: 'Daniel Castillo'
+    author: 'Daniel Castillo',
+    content: [
+      'El panorama del posicionamiento orgánico ha cambiado drásticamente en los últimos meses. Google prioriza hoy, más que nunca, la velocidad real del sitio, la usabilidad móvil y la verdadera utilidad del contenido redactado para personas en lugar de algoritmos.',
+      'Para mejorar sustancialmente tu ranking, el primer paso indispensable es optimizar tus métricas de Core Web Vitals. Esto incluye reducir el tiempo de carga del primer elemento (LCP), asegurar una interactividad casi instantánea (INP) y erradicar cualquier tipo de desplazamiento inesperado de elementos visuales (CLS).',
+      'En segundo lugar, la estructuración semántica de tus páginas utilizando etiquetas HTML correctas (header, section, article, h1, h2, h3) ayuda a las arañas de indexación a comprender de inmediato el propósito de cada sección de tu sitio.',
+      'Por último, la experiencia de usuario (UX) es el nuevo SEO. Un sitio con navegación confusa o cargado de anuncios invasivos generará un alto porcentaje de rebote, lo cual indica a los motores de búsqueda que el portal no ofrece la solución óptima que los usuarios buscaban.'
+    ]
   },
   {
     id: 'post-2',
     title: 'Por qué WordPress sigue dominando el mercado web y cómo potenciarlo',
+    subtitle: 'Desmitificando el CMS líder: velocidad, seguridad y escalabilidad extrema sin compromisos.',
     summary: 'Derribamos mitos sobre WordPress. Descubre cómo una arquitectura headless y un hosting optimizado pueden darte un sitio ultraveloz y totalmente seguro.',
     date: 'Junio 28, 2026',
     readTime: '5 min de lectura',
     category: 'WordPress',
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
-    author: 'Lorena Ruiz'
+    author: 'Lorena Ruiz',
+    content: [
+      'WordPress impulsa hoy más del 43% de todos los sitios web en el mundo. Sin embargo, persisten ideas obsoletas sobre su supuesta lentitud y vulnerabilidad ante ataques cibernéticos.',
+      'La realidad es que un WordPress profesionalmente configurado, libre de plantillas multipropósito pesadas y plugins innecesarios, puede competir cara a cara con desarrollos completamente a medida.',
+      'El secreto radica en la arquitectura: utilizar un constructor de bloques ligero y limpio, implementar un sistema de caché de servidor robusto en un hosting premium y utilizar redes de distribución de contenido (CDN) para aproximar los archivos al visitante.',
+      'Además, el enfoque de \'WordPress Headless\' separa el panel de administración clásico de la interfaz pública del usuario final, construyendo la parte visual con tecnologías ultraveloces como React o Next.js para una experiencia de usuario instantánea e inmune a vulnerabilidades tradicionales.'
+    ]
   },
   {
     id: 'post-3',
     title: 'Los 5 errores más comunes al crear una página web de negocios',
+    subtitle: 'Analizamos las fallas de experiencia de usuario y arquitectura que destruyen tus leads.',
     summary: 'Muchos sitios fallan en convertir visitas en clientes. Analizamos errores de velocidad, llamadas a la acción confusas y mala experiencia móvil.',
     date: 'Mayo 15, 2026',
     readTime: '8 min de lectura',
     category: 'Diseño Web',
     image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80',
-    author: 'Alejandro Mendoza'
+    author: 'Alejandro Mendoza',
+    content: [
+      'Diseñar un sitio web estético no es suficiente si tus visitantes se marchan sin realizar una consulta o compra. El primer gran error de los negocios es no contar con llamadas a la acción (CTAs) claras y visibles en el primer tercio de la pantalla.',
+      'Otro error catastrófico es la falta de optimización móvil. Más del 65% del tráfico web actual proviene de teléfonos inteligentes; un menú incomprensible, formularios kilométricos o botones diminutos frustrarán al usuario en segundos.',
+      'Asimismo, la lentitud en la carga inicial es un asesino silencioso de ventas: cada segundo de retraso disminuye la tasa de conversión en un 7%. Invertir en optimización técnica y un hosting rápido es crítico para evitar perder clientes ante competidores más veloces.'
+    ]
   },
   {
     id: 'post-4',
     title: 'La importancia crítica del mantenimiento web preventivo',
+    subtitle: 'Por qué tu sitio web corporativo necesita auditorías, parches y limpiezas constantes.',
     summary: 'Dejar una web abandonada es abrirle la puerta a hackeos, bases de datos lentas y enlaces caídos. Conoce cómo proteger tu activo digital principal.',
     date: 'Abril 04, 2026',
     readTime: '4 min de lectura',
     category: 'Mantenimiento',
     image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80',
-    author: 'Carlos Estrada'
+    author: 'Carlos Estrada',
+    content: [
+      'Un sitio web no es un elemento estático; es un ecosistema digital activo que requiere cuidado permanente. Dejar un portal web abandonado es la causa número uno de infecciones de malware y hackeos automatizados.',
+      'El mantenimiento preventivo mensual asegura que tanto el sistema central, como los plugins y la base de datos se mantengan limpios de amenazas conocidas y optimizados para responder rápidamente a las consultas de los usuarios.',
+      'Además, las actualizaciones de seguridad de los lenguajes de programación de los servidores (como PHP o Node) exigen ajustes periódicos en el código del sitio para evitar caídas imprevistas del sistema.',
+      'Contar con un plan de respaldo diario automatizado y un soporte técnico especializado te brinda la tranquilidad de saber que, ante cualquier eventualidad, tu sitio web se recuperará al 100% en cuestión de minutos sin perder datos de clientes.'
+    ]
   }
 ];

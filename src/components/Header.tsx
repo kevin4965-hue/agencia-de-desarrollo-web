@@ -53,7 +53,7 @@ export default function Header({ onOpenQuote }: HeaderProps) {
               </div>
               <div className="flex flex-col">
                 <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
-                  PixelCraft
+                  pixelweb
                 </span>
                 <span className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase mt-1">
                   Web Studio

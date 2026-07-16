@@ -22,6 +22,7 @@ export default function QuoteModal({ isOpen, onClose, selectedPlanOrService }: Q
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submittedData, setSubmittedData] = useState<any>(null);
 
   // Update selection if prop changes
   React.useEffect(() => {
@@ -39,26 +40,32 @@ export default function QuoteModal({ isOpen, onClose, selectedPlanOrService }: Q
     e.preventDefault();
     setLoading(true);
 
+    const dataToSubmit = { ...formData };
+    setSubmittedData(dataToSubmit);
+
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-      // Clean form
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-        setFormData({
-          name: '',
-          company: '',
-          email: '',
-          phone: '',
-          city: '',
-          projectType: 'Desarrollo Web',
-          budget: '$1,000 - $3,000',
-          message: ''
-        });
-      }, 5000);
-    }, 1500);
+
+      const messageText = `*Nueva Solicitud de Cotización - pixelweb*\n\n` +
+        `*Nombre:* ${dataToSubmit.name}\n` +
+        `*Empresa:* ${dataToSubmit.company || 'No especificada'}\n` +
+        `*Correo:* ${dataToSubmit.email}\n` +
+        `*Teléfono:* ${dataToSubmit.phone || 'No especificado'}\n` +
+        `*Ciudad:* ${dataToSubmit.city || 'No especificada'}\n` +
+        `*Proyecto:* ${dataToSubmit.projectType}\n` +
+        `*Presupuesto:* ${dataToSubmit.budget}\n` +
+        `*Mensaje:* ${dataToSubmit.message || 'Sin mensaje adicional'}`;
+
+      const whatsappUrl = `https://wa.me/573102655438?text=${encodeURIComponent(messageText)}`;
+      
+      try {
+        window.open(whatsappUrl, '_blank');
+      } catch (err) {
+        console.error('Popup blocked', err);
+      }
+    }, 1200);
   };
 
   return (
@@ -103,33 +110,85 @@ export default function QuoteModal({ isOpen, onClose, selectedPlanOrService }: Q
 
             {/* Content Body */}
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
-              {submitted ? (
+              {submitted && submittedData ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center py-12 text-center"
+                  className="flex flex-col items-center justify-center py-6 text-center"
                 >
-                  <div className="mb-4 rounded-full bg-emerald-500/10 p-4 text-emerald-400">
-                    <CheckCircle2 className="h-16 w-16" />
+                  <div className="mb-4 rounded-full bg-emerald-500/10 p-3 text-emerald-400">
+                    <CheckCircle2 className="h-12 w-12" />
                   </div>
-                  <h4 className="font-display text-2xl font-bold text-white">
-                    ¡Propuesta Recibida!
+                  <h4 className="font-display text-2xl font-bold text-white leading-tight">
+                    ¡Solicitud Procesada!
                   </h4>
-                  <p className="mt-2 max-w-md text-slate-300">
-                    Gracias, <strong>{formData.name}</strong>. Hemos registrado los datos para tu proyecto de{' '}
-                    <strong>{formData.projectType}</strong>. Un especialista técnico se pondrá en contacto contigo en menos de 2 horas.
+                  <p className="mt-2 max-w-md text-slate-300 text-sm">
+                    Gracias, <strong>{submittedData.name}</strong>. Hemos preparado tu cotización. Elige por cuál canal deseas completar el envío para recibir atención inmediata:
                   </p>
-                  <div className="mt-6 flex flex-col gap-2 rounded-xl bg-white/5 border border-white/5 p-4 text-left text-sm text-slate-300">
-                    <p className="font-medium text-white">Mientras tanto, también puedes comunicarte por:</p>
-                    <div className="flex flex-col gap-1 mt-1">
-                      <a href="https://wa.me/51999999999" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-emerald-400 hover:underline">
-                        <Phone className="h-4 w-4" /> +51 999 999 999 (WhatsApp Directo)
-                      </a>
-                      <span className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-brand-cyan" /> contacto@pixelcraft.com
-                      </span>
-                    </div>
+
+                  <div className="mt-6 w-full max-w-md space-y-3 text-left">
+                    {/* Botón WhatsApp */}
+                    <a
+                      href={`https://wa.me/573102655438?text=${encodeURIComponent(
+                        `*Nueva Solicitud de Cotización - pixelweb*\n\n` +
+                        `*Nombre:* ${submittedData.name}\n` +
+                        `*Empresa:* ${submittedData.company || 'No especificada'}\n` +
+                        `*Correo:* ${submittedData.email}\n` +
+                        `*Teléfono:* ${submittedData.phone || 'No especificado'}\n` +
+                        `*Ciudad:* ${submittedData.city || 'No especificada'}\n` +
+                        `*Proyecto:* ${submittedData.projectType}\n` +
+                        `*Presupuesto:* ${submittedData.budget}\n` +
+                        `*Mensaje:* ${submittedData.message || 'Sin mensaje adicional'}`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-600/20 text-sm cursor-pointer"
+                    >
+                      <Phone className="h-4 w-4 fill-current" />
+                      Enviar por WhatsApp Directo (Recomendado)
+                    </a>
+
+                    {/* Botón Correo */}
+                    <a
+                      href={`mailto:proyectos@pixelweb.online?subject=${encodeURIComponent(
+                        `Nueva Cotización: ${submittedData.name} - ${submittedData.projectType}`
+                      )}&body=${encodeURIComponent(
+                        `Nueva Solicitud de Cotización - pixelweb\n\n` +
+                        `Nombre: ${submittedData.name}\n` +
+                        `Empresa: ${submittedData.company || 'No especificada'}\n` +
+                        `Correo: ${submittedData.email}\n` +
+                        `Teléfono: ${submittedData.phone || 'No especificado'}\n` +
+                        `Ciudad: ${submittedData.city || 'No especificada'}\n` +
+                        `Tipo de Proyecto: ${submittedData.projectType}\n` +
+                        `Presupuesto Estimado: ${submittedData.budget}\n` +
+                        `Mensaje:\n${submittedData.message || 'Sin mensaje adicional'}`
+                      )}`}
+                      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl font-bold text-white bg-brand-blue hover:bg-brand-blue/90 transition-all duration-300 shadow-lg shadow-brand-blue/20 text-sm cursor-pointer"
+                    >
+                      <Mail className="h-4 w-4" />
+                      Enviar por Correo a proyectos@pixelweb.online
+                    </a>
                   </div>
+
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setSubmittedData(null);
+                      setFormData({
+                        name: '',
+                        company: '',
+                        email: '',
+                        phone: '',
+                        city: '',
+                        projectType: 'Desarrollo Web',
+                        budget: '$1,000 - $3,000',
+                        message: ''
+                      });
+                    }}
+                    className="mt-6 text-xs text-slate-400 hover:text-white transition-colors underline cursor-pointer"
+                  >
+                    Enviar otra cotización
+                  </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6" id="quote-modal-form">

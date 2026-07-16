@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { BLOG_POSTS } from '../data';
 import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
+import BlogModal from './BlogModal';
+import { BlogPost } from '../types';
 
 export default function Blog() {
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenPost = (post: BlogPost, e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
   return (
     <section
       id="blog"
@@ -42,7 +53,10 @@ export default function Blog() {
                 className="group relative rounded-2xl overflow-hidden border border-white/5 bg-white/3 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between glass-card"
               >
                 {/* Image Wrap */}
-                <div className="relative overflow-hidden aspect-[16/10] bg-slate-950 shrink-0">
+                <div 
+                  onClick={(e) => handleOpenPost(post, e)}
+                  className="relative overflow-hidden aspect-[16/10] bg-slate-950 shrink-0 cursor-pointer"
+                >
                   <img
                     src={post.image}
                     alt={post.title}
@@ -70,7 +84,10 @@ export default function Blog() {
                       </span>
                     </div>
 
-                    <h3 className="font-display text-base font-bold text-white mb-2 leading-snug group-hover:text-brand-purple transition-colors line-clamp-2">
+                    <h3 
+                      onClick={(e) => handleOpenPost(post, e)}
+                      className="font-display text-base font-bold text-white mb-2 leading-snug group-hover:text-brand-purple transition-colors line-clamp-2 cursor-pointer"
+                    >
                       {post.title}
                     </h3>
 
@@ -88,6 +105,7 @@ export default function Blog() {
 
                     <a
                       href="#blog"
+                      onClick={(e) => handleOpenPost(post, e)}
                       className="inline-flex items-center gap-1 text-xs font-bold text-brand-purple hover:text-brand-cyan transition-colors group-hover:translate-x-1 duration-300 cursor-pointer"
                     >
                       Leer más
@@ -101,6 +119,13 @@ export default function Blog() {
         </div>
 
       </div>
+
+      {/* Full Article Modal */}
+      <BlogModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        post={selectedPost}
+      />
     </section>
   );
 }

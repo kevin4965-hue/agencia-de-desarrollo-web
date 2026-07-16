@@ -55,6 +55,8 @@ export interface BlogPost {
   category: string;
   image: string;
   author: string;
+  content?: string[];
+  subtitle?: string;
 }
 
 export interface ProcessStep {
