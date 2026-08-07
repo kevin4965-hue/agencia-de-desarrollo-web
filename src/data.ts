@@ -144,8 +144,9 @@ export const PLANS: Plan[] = [
   {
     id: 'basico',
     name: 'Básico',
-    price: '$39 USD',
-    billing: 'al mes',
+    priceCOP: '$160.000',
+    priceUSD: '~$39 USD',
+    billing: 'mes',
     description: 'Ideal para blogs y páginas web corporativas informativas que requieren estabilidad y mantenimiento preventivo.',
     features: [
       'Actualizaciones mensuales de plugins y temas',
@@ -167,8 +168,9 @@ export const PLANS: Plan[] = [
   {
     id: 'profesional',
     name: 'Profesional',
-    price: '$99 USD',
-    billing: 'al mes',
+    priceCOP: '$400.000',
+    priceUSD: '~$99 USD',
+    billing: 'mes',
     description: 'Perfecto para negocios en crecimiento y sitios corporativos activos que demandan mejoras continuas.',
     features: [
       'Actualizaciones semanales de plugins y temas',
@@ -188,8 +190,9 @@ export const PLANS: Plan[] = [
   {
     id: 'premium',
     name: 'Premium',
-    price: '$199 USD',
-    billing: 'al mes',
+    priceCOP: '$800.000',
+    priceUSD: '~$199 USD',
+    billing: 'mes',
     description: 'La solución definitiva para tiendas virtuales o aplicaciones web que requieren soporte inmediato y cambios frecuentes.',
     features: [
       'Todo lo incluido en el plan Profesional',

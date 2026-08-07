@@ -16,7 +16,8 @@ export interface Service {
 export interface Plan {
   id: string;
   name: string;
-  price: string;
+  priceCOP: string;
+  priceUSD: string;
   billing: string;
   description: string;
   features: string[];

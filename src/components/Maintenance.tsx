@@ -34,7 +34,7 @@ export default function Maintenance({ onOpenQuote }: MaintenanceProps) {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-20" id="maintenance-plans-grid">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch mb-20" id="maintenance-plans-grid">
           {PLANS.map((plan, index) => {
             const isPopular = plan.popular;
 
@@ -44,68 +44,84 @@ export default function Maintenance({ onOpenQuote }: MaintenanceProps) {
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative rounded-3xl p-8 flex flex-col justify-between overflow-hidden border transition-all duration-300 glass-card ${
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-300 backdrop-blur-xl ${
                   isPopular 
-                    ? 'border-brand-purple ring-2 ring-brand-purple/20 shadow-xl lg:scale-[1.03] lg:z-10 bg-gradient-to-b from-brand-purple/[0.04] to-transparent' 
-                    : 'border-white/5 shadow-sm hover:shadow-xl hover:border-white/10'
+                    ? 'bg-gradient-to-b from-slate-900 via-slate-900/95 to-[#0b182d] border-2 border-brand-cyan shadow-2xl shadow-brand-cyan/20 text-white lg:-translate-y-1' 
+                    : 'bg-slate-900/80 border border-white/10 text-white shadow-xl hover:border-brand-blue/50 hover:shadow-2xl hover:shadow-brand-blue/10'
                 }`}
               >
-                {/* Popular Ribbon badge */}
-                {isPopular && (
-                  <div className="absolute top-5 right-5 flex items-center gap-1 px-3 py-1 rounded-full bg-brand-purple text-white text-[10px] font-bold uppercase tracking-wider shadow-md">
-                    <Sparkles className="h-3 w-3" />
-                    Recomendado
+                {/* Popular Badge */}
+                {isPopular ? (
+                  <div className="absolute top-5 right-0 font-black text-[10px] uppercase tracking-widest px-3 py-1 shadow-md rounded-l-md bg-gradient-to-r from-brand-cyan to-emerald-400 text-slate-950">
+                    MÁS POPULAR
+                  </div>
+                ) : (
+                  <div className="absolute top-5 right-0 font-black text-[10px] uppercase tracking-widest px-3 py-1 shadow-md rounded-l-md bg-white/10 border-l border-y border-white/20 text-brand-cyan backdrop-blur-md">
+                    RECOMENDADO
                   </div>
                 )}
 
-                <div>
-                  {/* Name and Price */}
-                  <span className="text-sm font-bold uppercase tracking-widest text-slate-400">
+                <div className="flex flex-col h-full">
+                  {/* Name */}
+                  <h3 className="font-display text-xl sm:text-2xl font-extrabold mb-3 text-white">
                     Plan {plan.name}
-                  </span>
-                  
-                  <div className="mt-4 flex items-baseline text-white">
-                    <span className="text-4xl sm:text-5xl font-bold tracking-tight font-display text-gradient">
-                      {plan.price}
-                    </span>
-                    <span className="ml-1 text-sm font-semibold text-slate-400">
-                      / {plan.billing}
-                    </span>
-                  </div>
+                  </h3>
 
-                  <p className="mt-4 text-sm text-slate-400 leading-relaxed">
+                  {/* Description */}
+                  <p className="text-xs leading-relaxed mb-6 text-slate-300 min-h-[40px]">
                     {plan.description}
                   </p>
 
-                  <div className="mt-8 border-t border-white/5 pt-6">
-                    <span className="text-xs font-bold uppercase tracking-widest text-slate-300 block mb-4">
+                  {/* Price Block */}
+                  <div className={`text-left py-4 px-4 rounded-2xl mb-6 border ${
+                    isPopular
+                      ? 'bg-slate-950/80 border-brand-cyan/30'
+                      : 'bg-slate-950/60 border-white/10'
+                  }`}>
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                      Precio Estimado / {plan.billing}
+                    </div>
+                    <div className="text-xl sm:text-2xl font-extrabold tracking-tight font-display leading-tight text-brand-cyan flex items-baseline gap-1.5">
+                      <span className="text-sm font-bold text-emerald-400 tracking-wider shrink-0">COP</span>
+                      <span>{plan.priceCOP}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-xs font-medium text-slate-300">
+                        {plan.priceUSD} / {plan.billing}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Features List */}
+                  <div className="flex-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider block mb-3 text-slate-400">
                       ¿Qué incluye?
                     </span>
-                    
-                    {/* Features List */}
-                    <ul className="space-y-3.5 mb-6">
+                    <ul className="space-y-2.5 mb-6">
                       {plan.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                          <span className="text-sm text-slate-300 font-medium">
+                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                          <Check className={`h-4 w-4 shrink-0 mt-0.5 ${
+                            isPopular ? 'text-brand-cyan' : 'text-emerald-400'
+                          }`} strokeWidth={2.5} />
+                          <span className="font-medium text-slate-200">
                             {feat}
                           </span>
                         </li>
                       ))}
                     </ul>
 
-                    {/* Not Included (Transparency) */}
+                    {/* Not Included */}
                     {plan.notIncluded && plan.notIncluded.length > 0 && (
-                      <div className="border-t border-white/5 pt-4 mt-4">
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500 block mb-3">
+                      <div className="border-t border-white/10 pt-4 mt-4 mb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-wider block mb-3 text-slate-500">
                           No Incluido:
                         </span>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-2">
                           {plan.notIncluded.map((feat, idx) => (
-                            <li key={idx} className="flex items-start gap-3 opacity-60">
-                              <X className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
-                              <span className="text-sm text-slate-500 line-through">
+                            <li key={idx} className="flex items-start gap-2.5 text-xs opacity-60">
+                              <X className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" strokeWidth={2} />
+                              <span className="text-slate-400 line-through">
                                 {feat}
                               </span>
                             </li>
@@ -119,11 +135,7 @@ export default function Maintenance({ onOpenQuote }: MaintenanceProps) {
                 {/* Submit button */}
                 <button
                   onClick={() => onOpenQuote(`Plan Mantenimiento ${plan.name}`)}
-                  className={`mt-8 w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-bold shadow transition-all duration-300 cursor-pointer ${
-                    isPopular
-                      ? 'accent-gradient text-white shadow-lg shadow-purple-500/20 hover:opacity-95'
-                      : 'border border-white/10 text-slate-200 bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/20'
-                  }`}
+                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-extrabold text-slate-950 bg-gradient-to-r from-brand-cyan to-emerald-400 hover:brightness-110 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-emerald-500/20 text-center text-xs sm:text-sm cursor-pointer mt-auto"
                 >
                   Contratar Plan {plan.name}
                 </button>
