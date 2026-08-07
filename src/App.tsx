@@ -18,6 +18,7 @@ import Stats from './components/Stats';
 import FAQ from './components/FAQ';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import Footer from './components/Footer';
 import QuoteModal from './components/QuoteModal';
 
@@ -150,7 +151,19 @@ export default function App() {
             transition={{ duration: 0.3 }}
             className="pt-20"
           >
-            <Contact />
+            <Contact onChangePage={setCurrentPage} />
+          </motion.div>
+        );
+      case 'privacidad':
+        return (
+          <motion.div
+            key="privacidad"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+          >
+            <PrivacyPolicy onChangePage={setCurrentPage} />
           </motion.div>
         );
       default:

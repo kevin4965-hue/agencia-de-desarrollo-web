@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, Clock, MapPin, Send, CheckCircle2, Sparkles, MessageSquare } from 'lucide-react';
 
-export default function Contact() {
+interface ContactProps {
+  onChangePage?: (page: string) => void;
+}
+
+export default function Contact({ onChangePage }: ContactProps) {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -441,8 +445,21 @@ export default function Contact() {
                         </>
                       )}
                     </button>
-                    <p className="text-center text-xs text-slate-400 mt-4 leading-none">
-                      🔒 Tus datos están encriptados y protegidos bajo estricto acuerdo de confidencialidad.
+                    <p className="text-center text-xs text-slate-400 mt-4 leading-relaxed">
+                      🔒 Tus datos están protegidos bajo estricto acuerdo de confidencialidad y nuestra{' '}
+                      <a
+                        href="#privacidad"
+                        onClick={(e) => {
+                          if (onChangePage) {
+                            e.preventDefault();
+                            onChangePage('privacidad');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }
+                        }}
+                        className="text-brand-cyan underline hover:text-white transition cursor-pointer"
+                      >
+                        Política de Privacidad
+                      </a>.
                     </p>
                   </div>
                 </form>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles, MessageSquare } from 'lucide-react';
+import { Menu, X, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import pixelwebLogo from '../assets/images/pixelweb_logo_1786130962431.jpg';
 
 interface HeaderProps {
   onOpenQuote: () => void;
@@ -57,17 +58,21 @@ export default function Header({ onOpenQuote, currentPage, onChangePage }: Heade
             <a
               href="#inicio"
               onClick={(e) => handleLinkClick(e, 'inicio')}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-3.5 group"
               id="header-logo"
             >
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue via-brand-purple to-brand-cyan shadow-lg shadow-brand-blue/30 transition group-hover:scale-105">
-                <Sparkles className="h-5 w-5 text-white" />
+              <div className="relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-full border-2 border-brand-cyan/60 shadow-xl shadow-brand-blue/50 transition group-hover:scale-105 group-hover:border-brand-cyan">
+                <img
+                  src={pixelwebLogo}
+                  alt="PixelWeb Logo"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="flex flex-col text-left">
-                <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
+                <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-none">
                   pixelweb
                 </span>
-                <span className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase mt-1">
+                <span className="text-xs sm:text-sm text-slate-300 font-semibold tracking-widest uppercase mt-1.5">
                   Web Studio
                 </span>
               </div>

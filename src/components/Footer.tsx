@@ -1,5 +1,6 @@
 import React from 'react';
-import { Sparkles, Facebook, Twitter, Instagram, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
+import pixelwebLogo from '../assets/images/pixelweb_logo_1786130962431.jpg';
 
 interface FooterProps {
   onChangePage: (page: string) => void;
@@ -27,9 +28,9 @@ export default function Footer({ onChangePage }: FooterProps) {
   ];
 
   const legalLinks = [
-    { name: 'Políticas de Privacidad', href: '#privacy' },
-    { name: 'Términos de Servicio', href: '#terms' },
-    { name: 'Aviso Legal', href: '#legal' }
+    { name: 'Políticas de Privacidad', page: 'privacidad' },
+    { name: 'Términos de Servicio', page: 'privacidad' },
+    { name: 'Aviso Legal', page: 'privacidad' }
   ];
 
   const socialLinks = [
@@ -59,16 +60,20 @@ export default function Footer({ onChangePage }: FooterProps) {
             <a
               href="#inicio"
               onClick={(e) => handleLinkClick(e, 'inicio')}
-              className="flex items-center gap-2 mb-6 group"
+              className="flex items-center gap-3.5 mb-6 group"
             >
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue via-brand-purple to-brand-cyan shadow-lg shadow-brand-blue/20">
-                <Sparkles className="h-5 w-5 text-white" />
+              <div className="relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-full border-2 border-brand-cyan/60 shadow-xl shadow-brand-blue/30 group-hover:scale-105 transition-transform">
+                <img
+                  src={pixelwebLogo}
+                  alt="PixelWeb Logo"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="flex flex-col text-left">
-                <span className="font-display text-lg font-extrabold tracking-tight text-white leading-none">
+                <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-none">
                   pixelweb
                 </span>
-                <span className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase leading-none mt-1">
+                <span className="text-xs sm:text-sm text-slate-300 font-semibold tracking-widest uppercase leading-none mt-1.5">
                   Web Studio
                 </span>
               </div>
@@ -172,8 +177,9 @@ export default function Footer({ onChangePage }: FooterProps) {
             {legalLinks.map((link, idx) => (
               <a
                 key={idx}
-                href={link.href}
-                className="hover:text-slate-400 transition-colors"
+                href={`#${link.page}`}
+                onClick={(e) => handleLinkClick(e, link.page)}
+                className="hover:text-slate-400 transition-colors cursor-pointer"
               >
                 {link.name}
               </a>

@@ -338,6 +338,17 @@ export default function QuoteModal({ isOpen, onClose, selectedPlanOrService }: Q
                         className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-white focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue placeholder:text-slate-500"
                       />
                     </div>
+
+                    {/* Mensaje de Política de Privacidad */}
+                    <div className="sm:col-span-2">
+                      <p className="text-xs text-slate-400 text-left">
+                        Al enviar esta solicitud acepto el tratamiento de mis datos personales de acuerdo con la{' '}
+                        <span className="text-brand-cyan underline">
+                          Política de Privacidad
+                        </span>{' '}
+                        de pixelweb.
+                      </p>
+                    </div>
                   </div>
 
                   <div className="border-t border-white/5 pt-6 flex justify-end gap-3">
